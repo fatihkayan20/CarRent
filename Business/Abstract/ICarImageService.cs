@@ -9,8 +9,8 @@ namespace Business.Abstract
         IDataResult<List<CarImage>> GetAll();
         IDataResult<List<CarImage>> GetAllByCarId(int carId);
         IDataResult<CarImage> GetById(int id);
-        IResult Add(CarImage carImage);
-        IResult Delete(CarImage carImage);
-        IResult Update(CarImage carImage);
+        IResult Add(Image image,CarImage carImage);
+        IResult Delete( CarImage carImage);
+        IResult Update(Image image,CarImage carImage);
     }
 }
