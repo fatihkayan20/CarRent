@@ -9,7 +9,7 @@ namespace Business.Constants
         // Car Messages
         public static string CarsListed = "Cars listed.";
         public static string CarRetrieved = "Car retrieved.";
-        public static string CarsCreated = "Cars created.";
+        public static string CarCreated = "Car created.";
         public static string MinDailyPriceError = "Daily price must be greater then 5!";
         public static string CarDeleted = "Car deleted successfully.";
         public static string CarUpdated = "Car updated successfully.";

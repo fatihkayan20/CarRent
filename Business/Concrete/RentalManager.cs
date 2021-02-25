@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FulentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
+using Entities.Concrete;
 
 namespace Business.Concrete
 {
@@ -28,6 +31,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r=> r.Id == id), Messages.RentalRetrieved);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             var result = _rentalDal.Get(f =>

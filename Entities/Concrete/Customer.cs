@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Core.Entities;
+﻿using Core.Entities;
 
-namespace Entities
+namespace Entities.Concrete
 {
     public class Customer : IEntity
     {

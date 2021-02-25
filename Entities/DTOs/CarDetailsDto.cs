@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Core;
+using Core.Entities;
 
 namespace Entities.DTOs
 {

@@ -4,20 +4,26 @@ using System.Text;
 
 namespace Core.Utilities.Results
 {
-    public class SuccessDataResult<T> : DataResult<T>
+    public class SuccessDataResult<T>:DataResult<T>
     {
-        public SuccessDataResult( T data) : base(true, data)
+        public SuccessDataResult(T data, string message):base(data,true,message)
         {
+
         }
 
-        public SuccessDataResult( T data, string message) : base(true, data, message)
+        public SuccessDataResult(T data):base(data,true)
         {
+
         }
-        public SuccessDataResult( string message) : base(true, default, message)
+
+        public SuccessDataResult(string message):base(default,true,message)
         {
+
         }
-        public SuccessDataResult( ) : base(true, default)
+
+        public SuccessDataResult():base(default,true)
         {
+                
         }
     }
 }
