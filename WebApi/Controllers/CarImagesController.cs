@@ -30,6 +30,7 @@ namespace WebApi.Controllers
 
             return BadRequest(result);
         }
+        
         [HttpGet("car/{carId}")]
         public IActionResult GetAllByCarId(int carId)
         {
@@ -41,6 +42,7 @@ namespace WebApi.Controllers
 
             return BadRequest(result);
         }
+        
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -68,7 +70,6 @@ namespace WebApi.Controllers
         [HttpPost("delete")]
         public IActionResult Delete(CarImage carImage )
         {
-            
             var result = _carImageService.Delete(carImage);
             if (result.Success)
             {
@@ -80,7 +81,6 @@ namespace WebApi.Controllers
         [HttpPost("update")]
         public IActionResult Update([FromForm] Image image, [FromForm] CarImage carImage )
         {
-            
             var result = _carImageService.Update(image,carImage);
             if (result.Success)
             {

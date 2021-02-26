@@ -25,7 +25,6 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetAllByCarId(int carId)
         {
-            Console.WriteLine(carId);
             var result = _carImageDal.GetAll(i => i.CarId == carId);
             
             if (result.Count >0)
@@ -34,7 +33,7 @@ namespace Business.Concrete
             }
 
             List<CarImage> images = new List<CarImage>();
-            images.Add(new CarImage(){CarId = carId ,ImageId = 0, CreateDate = DateTime.Now , ImagePath = "/images/car-rent.png"});
+            images.Add(new CarImage(){CarId = 0 ,ImageId = 0, CreateDate = DateTime.Now , ImagePath = "/images/car-rent.png"});
                 
             return new SuccessDataResult<List<CarImage>>(images);
 
@@ -55,27 +54,30 @@ namespace Business.Concrete
             {
                 return  new ErrorResult("One car must have 5 or less images");
             }
-            var path = "\\images\\";
             var currentDirectory = Environment.CurrentDirectory + "\\wwwroot";
+            var path = "\\images\\";
             string randomName = null;
             string type = null;
-
-                
-                
+            
                 
             if (image.Files != null && image.Files.Length > 0)
             {
                 randomName = Guid.NewGuid().ToString();
                 type = Path.GetExtension(image.Files.FileName);
+                
+                if (type != ".jpeg" && type != ".png" && type != ".jpg")
+                {
+                    return new ErrorResult("Wrong file type.");
+                }
                     
                 if (!Directory.Exists(currentDirectory+path))
                 {
                     Directory.CreateDirectory(currentDirectory+path);
                 }
                 
-                using (FileStream fs = System.IO.File.Create(currentDirectory+path+ randomName  +type ))
+                using (FileStream fs = File.Create(currentDirectory+path+ randomName  +type ))
                 {
-                    image.Files?.CopyTo(fs);
+                    image.Files.CopyTo(fs);
                     fs.Flush();
                     carImage.ImagePath = (path + randomName + type).Replace("\\", "/" );
                     carImage.CreateDate = DateTime.Now;
@@ -103,7 +105,7 @@ namespace Business.Concrete
                 File.Delete(path.Replace("/", "\\"));
             }
             _carImageDal.Delete(carImage);
-            return new SuccessResult( "deneme");
+            return new SuccessResult( "Image was deleted successfully");
         }
 
         public IResult Update(Image image,CarImage carImage)
@@ -125,10 +127,7 @@ namespace Business.Concrete
             var currentDirectory = Environment.CurrentDirectory + "\\wwwroot";
             string randomName = null;
             string type = null;
-
-                
-                
-                
+            
             if (image.Files != null && image.Files.Length > 0)
             {
                 randomName = Guid.NewGuid().ToString();
@@ -139,9 +138,14 @@ namespace Business.Concrete
                     Directory.CreateDirectory(currentDirectory+path);
                 }
                 
+                if (type != ".jpeg" && type != ".png" && type != ".jpg")
+                {
+                    return new ErrorResult("Wrong file type.");
+                }
+                
                 using (FileStream fs = System.IO.File.Create(currentDirectory+path+ randomName  +type ))
                 {
-                    image.Files?.CopyTo(fs);
+                    image.Files.CopyTo(fs);
                     fs.Flush();
                     carImage.ImagePath = (path + randomName + type).Replace("\\", "/" );
                     carImage.CreateDate = isImage.CreateDate;
