@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Utilities.Results;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Abstract
 {
@@ -9,8 +10,8 @@ namespace Business.Abstract
         IDataResult<List<CarImage>> GetAll();
         IDataResult<List<CarImage>> GetAllByCarId(int carId);
         IDataResult<CarImage> GetById(int id);
-        IResult Add(Image image,CarImage carImage);
+        IResult Add(IFormFile image,CarImage carImage);
         IResult Delete( CarImage carImage);
-        IResult Update(Image image,CarImage carImage);
+        IResult Update(IFormFile image,CarImage carImage);
     }
 }

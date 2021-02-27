@@ -4,6 +4,7 @@ using System.Reflection;
 using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -56,7 +57,7 @@ namespace WebApi.Controllers
         }
         
         [HttpPost("add")]
-        public IActionResult Add([FromForm] Image image, [FromForm] CarImage carImage )
+        public IActionResult Add([FromForm] IFormFile image, [FromForm] CarImage carImage )
         {
             
             var result = _carImageService.Add(image,carImage);
@@ -79,7 +80,7 @@ namespace WebApi.Controllers
         }
         
         [HttpPost("update")]
-        public IActionResult Update([FromForm] Image image, [FromForm] CarImage carImage )
+        public IActionResult Update([FromForm] IFormFile image, [FromForm] CarImage carImage )
         {
             var result = _carImageService.Update(image,carImage);
             if (result.Success)

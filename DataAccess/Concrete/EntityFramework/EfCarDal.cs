@@ -24,7 +24,6 @@ namespace DataAccess.Concrete.EntityFramework
 
                 return result.ToList();
             }
-
         }
 
         public CarDetailsDto GetById(int id)
