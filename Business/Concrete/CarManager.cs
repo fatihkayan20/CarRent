@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac.Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FulentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -40,7 +41,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
         }
-
+        
+        
+        [SecuredOperation("add")]
        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {

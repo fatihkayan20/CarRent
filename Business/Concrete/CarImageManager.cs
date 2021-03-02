@@ -53,9 +53,10 @@ namespace Business.Concrete
             {
                 return  new ErrorResult("One car must have 5 or less images");
             }
-
+            
             var imageResult =  FileUpload.Upload(image);
-            if (imageResult.Message == "File doesn't exists.")
+            
+            if (!imageResult.Success)
             {
                 return new ErrorResult(imageResult.Message);
             }

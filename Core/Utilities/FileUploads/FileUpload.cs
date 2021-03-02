@@ -12,8 +12,6 @@ namespace Core.Utilities.FileUploads
         
         public static IResult Upload(IFormFile file)
         {
-            try
-            {
                 var fileExists = CheckFileExists(file);
                 if (fileExists.Message != null)
                 {
@@ -26,18 +24,13 @@ namespace Core.Utilities.FileUploads
 
                 if (typeValid.Message != null)
                 {
-                    return typeValid;
+                    return new ErrorResult(typeValid.Message);
                 }
 
                 CheckDirectoryExists(_currentDirectory + _folderName);
                 CreateImageFile(_currentDirectory + _folderName+ randomName+type, file);
                 return new SuccessResult((_folderName+ randomName+type).Replace("\\", "/"));
-
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+                
             
 
         }
@@ -47,7 +40,7 @@ namespace Core.Utilities.FileUploads
             var fileExists = CheckFileExists(file);
             if (fileExists.Message != null)
             {
-                return fileExists;
+                return new ErrorResult(fileExists.Message);
             }
             
             var type = Path.GetExtension(file.FileName);
@@ -56,7 +49,7 @@ namespace Core.Utilities.FileUploads
 
             if (typeValid.Message != null)
             {
-                return typeValid;
+                return new ErrorResult(typeValid.Message);
             }
             
             DeleteOldImageFile((_currentDirectory+imagePath).Replace("/", "\\"));
