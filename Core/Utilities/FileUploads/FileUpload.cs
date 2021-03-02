@@ -7,7 +7,7 @@ namespace Core.Utilities.FileUploads
 {
     public class FileUpload
     {
-        private static string _currentDirectory = Environment.CurrentDirectory+ "\\wwwroot";
+        private static string _currentDirectory = Environment.CurrentDirectory + "\\wwwroot";
         private static string _folderName = "\\images\\";
         
         public static IResult Upload(IFormFile file)
@@ -17,7 +17,7 @@ namespace Core.Utilities.FileUploads
                 var fileExists = CheckFileExists(file);
                 if (fileExists.Message != null)
                 {
-                    return fileExists;
+                    return new ErrorResult(fileExists.Message);
                 }
 
                 var type = Path.GetExtension(file.FileName);
@@ -102,7 +102,7 @@ namespace Core.Utilities.FileUploads
         }
         private static void CreateImageFile(string directory , IFormFile file)
         {
-            using (FileStream fs = File.Create(directory ))
+            using (FileStream fs = File.Create(directory))
             {
                 file.CopyTo(fs);
                 fs.Flush();

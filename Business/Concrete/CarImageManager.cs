@@ -34,11 +34,9 @@ namespace Business.Concrete
             }
 
             List<CarImage> images = new List<CarImage>();
-            images.Add(new CarImage(){CarId = 0 ,ImageId = 0, ImagePath = "/images/car-rent.png"});
+            images.Add(new CarImage(){CarId = 0, ImageId = 0, ImagePath = "/images/car-rent.png"});
                 
             return new SuccessDataResult<List<CarImage>>(images);
-
-
         }
 
         public IDataResult<CarImage> GetById(int id)
@@ -55,8 +53,12 @@ namespace Business.Concrete
             {
                 return  new ErrorResult("One car must have 5 or less images");
             }
-          
+
             var imageResult =  FileUpload.Upload(image);
+            if (imageResult.Message == "File doesn't exists.")
+            {
+                return new ErrorResult(imageResult.Message);
+            }
             carImage.ImagePath = imageResult.Message;
             _carImageDal.Add(carImage);
             return new SuccessResult("Car image added");
@@ -83,9 +85,11 @@ namespace Business.Concrete
                 return new ErrorResult("Image not found");
             }
 
-            
-
             var updatedFile = FileUpload.Update(image,isImage.ImagePath);
+            if (updatedFile.Message == "File doesn't exists.")
+            {
+                return new ErrorResult(updatedFile.Message);
+            }
             carImage.ImagePath = updatedFile.Message;
             _carImageDal.Update(carImage);
             return new SuccessResult("Car image updated");
