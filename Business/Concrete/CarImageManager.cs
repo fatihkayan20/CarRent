@@ -87,7 +87,7 @@ namespace Business.Concrete
             }
 
             var updatedFile = FileUpload.Update(image,isImage.ImagePath);
-            if (updatedFile.Message == "File doesn't exists.")
+            if (!updatedFile.Success)
             {
                 return new ErrorResult(updatedFile.Message);
             }

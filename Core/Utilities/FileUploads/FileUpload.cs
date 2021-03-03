@@ -18,7 +18,7 @@ namespace Core.Utilities.FileUploads
                     return new ErrorResult(fileExists.Message);
                 }
 
-                var type = Path.GetExtension(file.FileName);
+                var type = Path.GetExtension(file.FileName).ToLower();
                 var typeValid = CheckFileTypeValid(type);
                 var randomName =  Guid.NewGuid().ToString();
 
@@ -30,9 +30,6 @@ namespace Core.Utilities.FileUploads
                 CheckDirectoryExists(_currentDirectory + _folderName);
                 CreateImageFile(_currentDirectory + _folderName+ randomName+type, file);
                 return new SuccessResult((_folderName+ randomName+type).Replace("\\", "/"));
-                
-            
-
         }
 
         public static IResult Update(IFormFile file, string imagePath)
@@ -43,7 +40,7 @@ namespace Core.Utilities.FileUploads
                 return new ErrorResult(fileExists.Message);
             }
             
-            var type = Path.GetExtension(file.FileName);
+            var type = Path.GetExtension(file.FileName).ToLower();
             var typeValid = CheckFileTypeValid(type);
             var randomName =  Guid.NewGuid().ToString();
 
