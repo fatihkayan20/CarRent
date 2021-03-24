@@ -6,40 +6,40 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal: EfEntityRepositoryBase<Car, DatabaseContext>, ICarDal
     {
-        public List<CarDetailsDto> GetCarDetails()
+        public List<CarDetailsDto> GetCarDetails(Expression<Func<CarDetailsDto, bool>> filter = null)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                var result = from car in context.Cars
-                    join color in context.Colors
-                        on car.ColorId equals color.Id 
-                             join brand in context.Brands
-                        on car.BrandId equals brand.Id
-                    select new CarDetailsDto { Id= car.Id, BrandName = brand.Name, ColorName = color.Name, DailyPrice = car.DailyPrice, Description = car.Description, ModelYear = car.ModelYear};
+                var result = from c in context.Cars 
+                    join b in context.Brands
+                        on c.BrandId equals b.Id
+                    join co in context.Colors
+                        on c.ColorId equals co.Id
+                    select new CarDetailsDto
+                    {
+                        Id = c.Id,
+                        BrandId = b.Id,
+                        ColorId = co.Id,
+                        BrandName = b.Name,
+                        ColorName = co.Name,
+                        ModelYear = c.ModelYear,
+                        DailyPrice = c.DailyPrice,
+                        Description = c.Description,
+                        Images = (from i in context.CarImages where  i.CarId == c.Id select i.ImagePath).ToList(),
+                        IsRentable = !context.Rentals.Any(r=>r.CarId == c.Id) || !context.Rentals.Any(r => r.CarId == c.Id && (r.ReturnDate == null || (r.ReturnDate.HasValue && r.ReturnDate > DateTime.Now )))
+                    };
 
-                return result.ToList();
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
+           
             }
         }
 
-        public CarDetailsDto GetById(int id)
-        {
-            using (DatabaseContext context = new DatabaseContext())
-            {
-                var result = from car in context.Cars
-                    join color in context.Colors
-                        on car.ColorId equals color.Id
-                    join brand in context.Brands
-                        on car.BrandId equals brand.Id
-                             where car.Id == id
-                    select new CarDetailsDto { Id = car.Id, BrandName = brand.Name, ColorName = color.Name, DailyPrice = car.DailyPrice, Description = car.Description, ModelYear = car.ModelYear };
-
-                return result.First<CarDetailsDto>();
-            }
-        }
+        
     }
 }

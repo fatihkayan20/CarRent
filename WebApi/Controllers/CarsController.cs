@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -23,11 +24,19 @@ namespace WebApi.Controllers
             _carService = carService;
         }
 
-        // Get All Cars
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAllCarsDetails([FromQuery]FilterDto filter, [FromQuery] int Status)
         {
-            var result = _carService.GetAll();
+            if (Status == 2)
+            {
+                filter.IsRentable = true;
+            }
+            else
+            {
+                filter.IsRentable= null;
+            }
+            
+            var result = _carService.GetCarDetails(filter);
             if (result.Success)
             {
                 return Ok(result);
@@ -35,65 +44,6 @@ namespace WebApi.Controllers
 
             return BadRequest(result);
         }
-
-        // Get All Cars With Details
-        [Route("details")]
-        [HttpGet]
-        public IActionResult GetAllCarsDetails()
-        {
-            var result = _carService.GetCarDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        // Get One Car With Details
-        [Route("{id}")]
-        [HttpGet]
-        public IActionResult GetOneCar(int id)
-        {
-            var result = _carService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        // Get All Cars By BrandId
-        [Route("brand/{id}")]
-        [HttpGet]
-        public IActionResult GetByBrandId(int id)
-        {
-            var result = _carService.GetAllByBrandId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        // Get All Cars By ColorId
-        [Route("color/{id}")]
-        [HttpGet]
-        public IActionResult GetByColorId(int id)
-        {
-            var result = _carService.GetCarsByColorId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }     
-        
-        
-       
 
         [HttpPost]
         public IActionResult Add(Car car)

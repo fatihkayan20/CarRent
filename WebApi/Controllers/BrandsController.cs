@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -21,9 +22,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery]FilterForBrandAndColor filter)
         {
-            var result = _brandService.GetAll();
+            var result = _brandService.GetAll(filter);
             if (result.Success)
             {
                 return Ok(result);

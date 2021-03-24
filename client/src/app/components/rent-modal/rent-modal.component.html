@@ -1,0 +1,103 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rent">
+  Rent
+</button>
+
+
+
+<div class="modal fade" id="rent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div *ngIf="state == 1" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rent Car</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row d-flex justify-content-center mb-4">
+          <div class="col-md-4 mr-1">
+            <label for="rentDate">Rent Date</label>
+            <input name="rentDate" type="date">
+          </div>
+
+          <div class="col-md-4 ml-1">
+            <label for="returnDate">Return Date</label>
+            <input name="returnDate" type="date">
+          </div>
+        </div>
+
+        <div class="row m-2">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+          </select>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="routeToPayment()" type="button" class="btn btn-primary">Rent</button>
+      </div>
+    </div>
+
+    <div *ngIf="state == 2" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label for="ccOwner">Card Owner</label>
+          <input type="text" name='ccOwner' placeholder="Card Owner">
+        </div>
+
+        <div class="row">
+          <label for="ccn">Credit Card</label>
+          <input type="tel" name='ccn' inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"
+            maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+        </div>
+
+        <div class="row">
+          <label for="lastMonth">Expiry Year</label>
+          <select name='lastMonth' class="col-md-2" id='expireMM'>
+            <option value=''>Month</option>
+            <option value='01'>January</option>
+            <option value='02'>February</option>
+            <option value='03'>March</option>
+            <option value='04'>April</option>
+            <option value='05'>May</option>
+            <option value='06'>June</option>
+            <option value='07'>July</option>
+            <option value='08'>August</option>
+            <option value='09'>September</option>
+            <option value='10'>October</option>
+            <option value='11'>November</option>
+            <option value='12'>December</option>
+          </select>
+
+          <select name='expireYY' class="col-md-2" id='expireYY'>
+            <option value=''>Year</option>
+            <option value='21'>2021</option>
+            <option value='22'>2022</option>
+            <option value='23'>2023</option>
+            <option value='24'>2024</option>
+            <option value='25'>2025</option>
+            <option value='26'>2026</option>
+            <option value='27'>2027</option>
+          </select>
+
+          <!-- <label for="cvv">CVV</label> -->
+          <input class="col-md-3 ms-5" type="tel" name='cvv' placeholder="CVV" maxlength="3">
+        </div>
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="routeToPayment()" type="button" class="btn btn-primary">Rent</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

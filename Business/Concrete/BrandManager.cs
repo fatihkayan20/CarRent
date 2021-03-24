@@ -5,9 +5,11 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FulentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Filter;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -19,9 +21,10 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public IDataResult<List<Brand>> GetAll()
+        public IDataResult<List<Brand>> GetAll(FilterForBrandAndColor filter)
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
+            var lambda =Filter.DynamicFilter<Brand, FilterForBrandAndColor>(filter);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(lambda), Messages.BrandsListed);
         }
 
         public IDataResult<Brand> GetById(int id)

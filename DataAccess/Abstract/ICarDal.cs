@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using Core.DataAccess;
 using Entities.Concrete;
@@ -9,7 +10,6 @@ namespace DataAccess.Abstract
 {
     public interface ICarDal: IEntityRepository<Car>
     {
-        List<CarDetailsDto> GetCarDetails();
-        CarDetailsDto GetById(int id);
+        List<CarDetailsDto> GetCarDetails(Expression<Func<CarDetailsDto, bool>> filter = null);
     }
 }

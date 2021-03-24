@@ -10,6 +10,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -21,14 +22,14 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-        public IDataResult<List<Rental>> GetAll()
+        public IDataResult<List<RentalDetailDto>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetAllWithDetail(), Messages.RentalsListed);
         }
 
-        public IDataResult<Rental> GetById(int id)
+        public IDataResult<RentalDetailDto> GetById(int id)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r=> r.Id == id), Messages.RentalRetrieved);
+            return new SuccessDataResult<RentalDetailDto>(_rentalDal.GetAllWithDetail(r => r.Id == id).FirstOrDefault(), Messages.RentalRetrieved);
         }
 
         [ValidationAspect(typeof(RentalValidator))]

@@ -1,0 +1,54 @@
+<div class="card">
+  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+
+      <div class="carousel-item" *ngFor="let carImage of cars[0]?.images; index as i; first as firstImage"
+        [ngClass]="{ active: firstImage }">
+
+        <!-- diziye gelen ilk elemaı firstImage atar. Daha sonra, ngClass normal class ın içerisine karşısında yazan boolean değer true ysa active komutu ekliyor. -->
+        <img [src]="carImage  ? imageUrl+ carImage : imageUrl + defaultImg" alt="..." class="d-block w-100"
+          style="height: 50vh; object-fit: contain;" />
+      </div>
+
+
+      <div class="carousel-item" *ngFor="let carImage of cars[0]?.images; index as i; first as firstImage"
+        [ngClass]="{ active: firstImage }">
+
+        <!-- diziye gelen ilk elemaı firstImage atar. Daha sonra, ngClass normal class ın içerisine karşısında yazan boolean değer true ysa active komutu ekliyor. -->
+        <img [src]="carImage  ? imageUrl+ carImage : imageUrl + defaultImg" alt="..." class="d-block w-100"
+          style="height: 50vh; object-fit: contain;" />
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body" *ngFor="let carDetail of cars">
+    <h5 class="card-title">
+      {{ carDetail?.brandName }}
+    </h5>
+    <p class="card-text">{{ carDetail?.description }}</p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><b>Color :</b> {{ carDetail?.colorName }}</li>
+      <li class="list-group-item">
+        <b>Model Year :</b> {{ carDetail?.modelYear }}
+      </li>
+      <li class="list-group-item">
+        <b>Daily Price :</b> {{ carDetail?.dailyPrice }} ₺
+      </li>
+      <li class="list-group-item">
+        <b>Status : </b> {{ carDetail?.isRentable ? "Available" : "Not Available" }}
+      </li>
+    </ul>
+
+    <app-rent-modal></app-rent-modal>
+  </div>
+</div>

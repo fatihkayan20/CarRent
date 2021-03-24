@@ -1,0 +1,12 @@
+<ul class="btn list-group" data-bs-toggle="collapse" href="#colors" role="button" aria-expanded="false"
+  aria-controls="collapseExample">
+  Colors
+</ul>
+
+<ul class="collapse" id="colors">
+  <li class="list-group-item btn" (click)="setCurrentColorDefault()">All Colors</li>
+  <li *ngFor=" let color of colors" [class]="getColorClass(color)" (click)="setCurrentColor(color)">
+    {{color.name}}
+  </li>
+
+</ul>

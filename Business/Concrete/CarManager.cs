@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac.Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FulentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Filter;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,29 +23,16 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
-        public IDataResult<List<Car>> GetAll()
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
-        }
-
-        public IDataResult<List<Car>> GetAllByBrandId(int id)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id), Messages.CarsListed);
-        }
-
-        public IDataResult<List<Car>> GetCarsByColorId(int id)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.CarsListed);
-        }
-
-        public IDataResult<List<CarDetailsDto>> GetCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
-        }
         
-        
-        [SecuredOperation("add")]
+
+        public IDataResult<List<CarDetailsDto>> GetCarDetails(FilterDto filter)
+        {
+            var a = Filter.DynamicFilter<CarDetailsDto, FilterDto>(filter);
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(a), Messages.CarsListed);
+        }
+
+
+        // [SecuredOperation("add")]
        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -63,9 +52,6 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarUpdated);
         }
 
-        public IDataResult<CarDetailsDto> GetById(int carId)
-        {
-            return new SuccessDataResult<CarDetailsDto>(_carDal.GetById(carId), Messages.CarRetrieved);
-        }
+
     }
 }

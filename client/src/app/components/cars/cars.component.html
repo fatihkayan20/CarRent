@@ -1,0 +1,17 @@
+<div class="row">
+  <div *ngFor="let car of cars" class="card col-md-2 m-2" style="width: 18rem;">
+    <img [src]="car.images.length !== 0 ? imageUrl+ car.images[0] : imageUrl + defaultImg" class="card-img-top" alt="">
+    <div class="card-body">
+      <p class="card-text">{{car.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Model: {{car.modelYear}}</li>
+      <li class="list-group-item">Color: {{car.colorName}}</li>
+      <li class="list-group-item">Brand: {{car.brandName}}</li>
+      <li class="list-group-item">Price: {{car.dailyPrice}}</li>
+    </ul>
+    <div class="card-body flex ">
+      <button (click)="setCurrentCar(car)" class="btn btn-primary">Details</button>
+    </div>
+  </div>
+</div>

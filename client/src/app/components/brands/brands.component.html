@@ -1,0 +1,12 @@
+<ul class="btn list-group" data-bs-toggle="collapse" href="#brands" role="button" aria-expanded="false"
+  aria-controls="collapseExample">
+  Brands
+</ul>
+
+<ul class="collapse" id="brands">
+  <li class="list-group-item btn" (click)="setCurrentBrandDefault()">All Brands</li>
+  <li *ngFor=" let brand of brands" [class]="getBrandClass(brand)" (click)="setCurrentBrand(brand)">
+    {{brand.name}}
+  </li>
+
+</ul>
