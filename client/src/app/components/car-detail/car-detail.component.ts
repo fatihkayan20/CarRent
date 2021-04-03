@@ -1,4 +1,4 @@
-import { imageUrl } from './../../../enviroments/enviroments';
+import { imageUrl } from '../../../environments/environments';
 import { Car } from './../../models/car';
 import { ActivatedRoute } from '@angular/router';
 import { RoutingService } from './../../services/routing.service';

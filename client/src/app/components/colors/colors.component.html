@@ -5,8 +5,47 @@
 
 <ul class="collapse" id="colors">
   <li class="list-group-item btn" (click)="setCurrentColorDefault()">All Colors</li>
-  <li *ngFor=" let color of colors" [class]="getColorClass(color)" (click)="setCurrentColor(color)">
-    {{color.name}}
+  <li class=" list-group-item form-group">
+    <input type="text" [(ngModel)]="filterText" class="form-control" placeholder="Search a color">
+  </li>
+  <li *ngFor=" let color of colors | colorFilterPipe:filterText;  " [class]="getColorClass(color)"
+    (click)="setCurrentColor(color)">
+    <span>
+
+      {{color.name}}
+    </span>
+    <div *ngIf="isAdmin()" class="float-end">
+
+      <mat-icon style="font-size: 1rem; " data-bs-toggle="modal" data-bs-target="#colorEdit">edit</mat-icon>
+      <mat-icon style="font-size: 1rem; color:red" (click)="delete(color)">delete</mat-icon>
+    </div>
   </li>
 
 </ul>
+
+
+
+<div class="modal fade" id="colorEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Color Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='colorEditForm' *ngIf="isColorSetted">
+          <div class="form-group">
+            <label for="name">Color Name</label>
+            <input type="text" id="name" class="form-control" formControlName='name'>
+          </div>
+        </form>
+      </div>
+      <p class="text-center" [ngClass]="(formMessage?.success)? 'text-success' : 'text-danger'">
+        {{formMessage?.message}}
+      </p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editColor()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

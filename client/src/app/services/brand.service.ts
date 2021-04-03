@@ -1,4 +1,5 @@
-import { apiUrl } from './../../enviroments/enviroments';
+import { ResponseModel } from './../models/responseModel';
+import { apiUrl } from '../../environments/environments';
 import { Brand } from './../models/brand';
 import { ListResponseModel } from './../models/listResponseModel';
 import { HttpClient } from '@angular/common/http';
@@ -18,5 +19,15 @@ export class BrandService {
       url += 'name=' + name + '&';
     }
     return this.httpClient.get<ListResponseModel<Brand>>(url);
+  }
+
+  editBrand(brand: Brand) {
+    let url = apiUrl + '/brands/update';
+    return this.httpClient.post(url, brand);
+  }
+
+  delete(brand: Brand) {
+    let url = apiUrl + '/brands/delete';
+    return this.httpClient.post(url, brand);
   }
 }

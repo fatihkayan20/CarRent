@@ -1,4 +1,4 @@
-import { apiUrl } from './../../enviroments/enviroments';
+import { apiUrl } from '../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Color } from './../models/color';
 import { ListResponseModel } from './../models/listResponseModel';
@@ -17,5 +17,14 @@ export class ColorService {
       url += 'name=' + name + '&';
     }
     return this.httpClient.get<ListResponseModel<Color>>(url);
+  }
+
+  editColor(color: Color) {
+    let url = apiUrl + '/colors/update';
+    return this.httpClient.post(url, color);
+  }
+  delete(color: Color) {
+    let url = apiUrl + '/colors/delete';
+    return this.httpClient.post(url, color);
   }
 }

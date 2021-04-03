@@ -9,22 +9,22 @@ namespace Core.Extensions
     {
         public static void AddEmail(this ICollection<Claim> claims, string email)
         {
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email,email));
+            claims.Add(new Claim("Email",email));
         }
 
         public static void AddName(this ICollection<Claim> claims, string name)
         {
-            claims.Add(new Claim(ClaimTypes.Name, name));
+            claims.Add(new Claim("Name", name));
         }
 
         public static void AddNameIdentifier(this ICollection<Claim> claims, string nameIdentifier)
         {
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, nameIdentifier));
+            claims.Add(new Claim("Id", nameIdentifier));
         }
 
         public static void AddRoles(this ICollection<Claim> claims, string[] roles)
         {
-            roles.ToList().ForEach(role=>claims.Add(new Claim(ClaimTypes.Role, role)));
+            roles.ToList().ForEach(role=>claims.Add(new Claim("Claims", role)));
         }
     }
 }

@@ -1,3 +1,5 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { RoutingService } from './../../services/routing.service';
 import { Brand } from './../../models/brand';
 import { BrandService } from './../../services/brand.service';
@@ -11,16 +13,38 @@ import { Router } from '@angular/router';
 })
 export class BrandsComponent implements OnInit {
   brands: Brand[] = [];
+  filterText: string = '';
+  brandEditForm: FormGroup;
+  brand: Brand;
+  isBrandSetted: boolean = false;
+  formMessage: any;
 
   constructor(
     private brandService: BrandService,
-    private route: Router,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.getBrands();
   }
+
+  createBrandEditForm() {
+    this.brandEditForm = this.formBuilder.group({
+      id: [this.routingService.currentBrand.id, Validators.required],
+      name: [this.routingService.currentBrand.name, Validators.required],
+    });
+  }
+
+  ngDoCheck() {
+    if (this.routingService.currentBrand !== this.brand) {
+      this.brand = this.routingService.currentBrand;
+      this.createBrandEditForm();
+      this.isBrandSetted = true;
+    }
+  }
+
   getBrands() {
     this.brandService.getBrands().subscribe((res) => {
       this.brands = res.data;
@@ -41,5 +65,31 @@ export class BrandsComponent implements OnInit {
     } else {
       return 'list-group-item btn';
     }
+  }
+
+  delete(brand: Brand) {
+    if (confirm('Are you sure to delete ' + brand.name + '?')) {
+      this.brandService.delete(brand).subscribe(() => {});
+    }
+  }
+
+  editBrand() {
+    if (this.brandEditForm.valid) {
+      this.brandService.editBrand(this.brandEditForm.value).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+          this.formMessage = err;
+        }
+      );
+    } else {
+      this.formMessage = { message: 'Form is not valid', success: true };
+    }
+  }
+
+  isAdmin() {
+    return this.authService.user.IsAdmin;
   }
 }

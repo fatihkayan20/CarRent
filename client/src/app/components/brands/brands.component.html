@@ -5,8 +5,46 @@
 
 <ul class="collapse" id="brands">
   <li class="list-group-item btn" (click)="setCurrentBrandDefault()">All Brands</li>
-  <li *ngFor=" let brand of brands" [class]="getBrandClass(brand)" (click)="setCurrentBrand(brand)">
-    {{brand.name}}
+  <li class=" list-group-item form-group">
+    <input type="text" [(ngModel)]="filterText" class="form-control" placeholder="Search a brand">
+  </li>
+  <li *ngFor=" let brand of brands | brandFilterPipe:filterText" [class]="getBrandClass(brand)"
+    (click)="setCurrentBrand(brand)">
+    <span>{{brand.name}}</span>
+    <div class="float-end" *ngIf="isAdmin()">
+      <mat-icon style="font-size: 1rem; " data-bs-toggle="modal" data-bs-target="#brandEdit">edit</mat-icon>
+      <mat-icon style="font-size: 1rem; color:red" (click)="delete(brand)">delete</mat-icon>
+    </div>
   </li>
 
 </ul>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="brandEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Brand Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='brandEditForm' *ngIf="isBrandSetted">
+          <div class="form-group">
+            <label for="name">Brand Name</label>
+            <input type="text" id="name" class="form-control" formControlName='name'>
+          </div>
+        </form>
+      </div>
+      <p class="text-center" [ngClass]="(formMessage?.success)? 'text-success' : 'text-danger'">
+        {{formMessage?.message}}
+      </p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editBrand()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

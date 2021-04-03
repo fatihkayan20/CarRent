@@ -3,7 +3,7 @@ import { BrandService } from './brand.service';
 import { ColorService } from './color.service';
 import { CarService } from './car.service';
 import { Car } from './../models/car';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Color } from './../models/color';
 import { Brand } from './../models/brand';
 import { Injectable } from '@angular/core';

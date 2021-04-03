@@ -31,10 +31,24 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+
+      <div *ngIf="!isAuthenticated()" class="me-5">
+        <button class="btn btn-secondary" routerLink='/login'>Login</button>
+        <button class="btn btn-secondary ms-3" routerLink='/register'>Register</button>
+      </div>
+
+      <div class="dropdown me-5" *ngIf="isAuthenticated()">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{user.Name}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <li><button class="dropdown-item" type="button">Edit Profile</button></li>
+          <li><button class="dropdown-item" type="button" (click)="logout()">Logout</button></li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </nav>

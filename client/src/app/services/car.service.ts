@@ -1,5 +1,5 @@
 import { Car } from './../models/car';
-import { apiUrl } from './../../enviroments/enviroments';
+import { apiUrl } from '../../environments/environments';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

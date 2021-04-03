@@ -6,95 +6,101 @@
 
 <div class="modal fade" id="rent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div *ngIf="state == 1" class="modal-content">
+    <div *ngIf="state !== 2" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Rent Car</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row d-flex justify-content-center mb-4">
-          <div class="col-md-4 mr-1">
-            <label for="rentDate">Rent Date</label>
-            <input name="rentDate" type="date">
-          </div>
+          <form [formGroup]="carRentForm">
 
-          <div class="col-md-4 ml-1">
-            <label for="returnDate">Return Date</label>
-            <input name="returnDate" type="date">
-          </div>
+            <div class="mb-3">
+              <label for="rentDate">Rent Date</label>
+              <input formControlName='rentDate' class="form-control" name="rentDate" type="date">
+            </div>
+
+            <div>
+              <label for="returnDate">Return Date</label>
+              <input formControlName='returnDate' class="form-control" name="returnDate" type="date">
+            </div>
+          </form>
         </div>
-
-        <div class="row m-2">
-          <select class="form-select" aria-label="Default select example">
+        <div class="row mt-3">
+          <select class="form-select form-control" aria-label="Default select example">
             <option selected>Open this select menu</option>
           </select>
         </div>
 
-
+        <div class="text-danger"> {{errorMessage}} </div>
       </div>
       <div class="modal-footer">
-        <button (click)="routeToPayment()" type="button" class="btn btn-primary">Rent</button>
+        <button (click)="routeToPayment()" type="button" class="btn btn-primary">Go to payment</button>
       </div>
     </div>
 
-    <div *ngIf="state == 2" class="modal-content">
+    <div *ngIf="state !== 1" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Payment</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <label for="ccOwner">Card Owner</label>
-          <input type="text" name='ccOwner' placeholder="Card Owner">
-        </div>
 
-        <div class="row">
-          <label for="ccn">Credit Card</label>
-          <input type="tel" name='ccn' inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"
-            maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-        </div>
+        <form [formGroup]='paymentForm'>
+          <div class="form-group mb-3">
 
-        <div class="row">
-          <label for="lastMonth">Expiry Year</label>
-          <select name='lastMonth' class="col-md-2" id='expireMM'>
-            <option value=''>Month</option>
-            <option value='01'>January</option>
-            <option value='02'>February</option>
-            <option value='03'>March</option>
-            <option value='04'>April</option>
-            <option value='05'>May</option>
-            <option value='06'>June</option>
-            <option value='07'>July</option>
-            <option value='08'>August</option>
-            <option value='09'>September</option>
-            <option value='10'>October</option>
-            <option value='11'>November</option>
-            <option value='12'>December</option>
-          </select>
+            <label for="ccOwner">Card Owner</label>
+            <input formControlName='owner' class="form-control" type="text" name='ccOwner' placeholder="Card Owner">
+          </div>
 
-          <select name='expireYY' class="col-md-2" id='expireYY'>
-            <option value=''>Year</option>
-            <option value='21'>2021</option>
-            <option value='22'>2022</option>
-            <option value='23'>2023</option>
-            <option value='24'>2024</option>
-            <option value='25'>2025</option>
-            <option value='26'>2026</option>
-            <option value='27'>2027</option>
-          </select>
+          <div class="form-group mb-3">
+            <label for="ccn">Credit Card</label>
+            <input formControlName='number' class="form-control" type="tel" name='ccn' inputmode="numeric"
+              pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+          </div>
 
-          <!-- <label for="cvv">CVV</label> -->
-          <input class="col-md-3 ms-5" type="tel" name='cvv' placeholder="CVV" maxlength="3">
-        </div>
+          <div class="form-group mb-3">
 
+            <label for="lastMonth">Expiry Year</label>
+            <select formControlName='expiryMonth' class="form-control" name='lastMonth' class="col-md-2" id='expireMM'>
+              <option value=''>Month</option>
+              <option value='01'>January</option>
+              <option value='02'>February</option>
+              <option value='03'>March</option>
+              <option value='04'>April</option>
+              <option value='05'>May</option>
+              <option value='06'>June</option>
+              <option value='07'>July</option>
+              <option value='08'>August</option>
+              <option value='09'>September</option>
+              <option value='10'>October</option>
+              <option value='11'>November</option>
+              <option value='12'>December</option>
+            </select>
 
+            <select formControlName='expiryYear' class="form-control" name='expireYY' class="col-md-2" id='expireYY'>
+              <option value=''>Year</option>
+              <option value='21'>2021</option>
+              <option value='22'>2022</option>
+              <option value='23'>2023</option>
+              <option value='24'>2024</option>
+              <option value='25'>2025</option>
+              <option value='26'>2026</option>
+              <option value='27'>2027</option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
 
-
-
+            <label for="cvv">CVV</label>
+            <input formControlName='cvv' class="form-control" class="col-md-3 ms-5" type="tel" id='cvv'
+              placeholder="CVV" maxlength="3">
+          </div>
+          <div class="text-danger"> {{errorMessage}} </div>
+        </form>
 
       </div>
       <div class="modal-footer">
-        <button (click)="routeToPayment()" type="button" class="btn btn-primary">Rent</button>
+        <button (click)="completePayment()" type="button" class="btn btn-primary">Rent</button>
       </div>
     </div>
 
