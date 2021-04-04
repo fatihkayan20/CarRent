@@ -50,6 +50,6 @@
       </li>
     </ul>
 
-    <app-rent-modal></app-rent-modal>
+    <app-rent-modal [isAvailable]='carDetail?.isRentable' [dailyPrice]='carDetail?.dailyPrice'></app-rent-modal>
   </div>
 </div>

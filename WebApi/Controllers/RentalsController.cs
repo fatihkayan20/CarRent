@@ -44,9 +44,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Rental rental)
+        public IActionResult Add(Dto dto)
         {
-            var result = _rentalService.Add(rental);
+            var result = _rentalService.Add(dto.Rental,dto.Payment);
             if (result.Success)
             {
                 return Ok(result);
@@ -77,5 +77,13 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+
+
+        public class Dto
+        {
+            public Rental Rental { get; set; }
+            public Payment Payment { get; set; }
+        }
+            
     }
 }

@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rent">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rent" [disabled]='!isAvailable'>
   Rent
 </button>
 
@@ -17,12 +17,14 @@
 
             <div class="mb-3">
               <label for="rentDate">Rent Date</label>
-              <input formControlName='rentDate' class="form-control" name="rentDate" type="date">
+              <input formControlName='rentDate' (input)='minDateChange($event)' class="form-control" name="rentDate"
+                type="date" min='{{minDate}}' max='{{maxDate}}'>
             </div>
 
             <div>
               <label for="returnDate">Return Date</label>
-              <input formControlName='returnDate' class="form-control" name="returnDate" type="date">
+              <input formControlName='returnDate' class="form-control" name="returnDate" type="date" min='{{minDate}}'
+                (input)='maxDateChange($event)' max='{{maxDate}}'>
             </div>
           </form>
         </div>
@@ -33,11 +35,14 @@
         </div>
 
         <div class="text-danger"> {{errorMessage}} </div>
+        <div class="text-primary"> {{rentMessage}} </div>
       </div>
       <div class="modal-footer">
         <button (click)="routeToPayment()" type="button" class="btn btn-primary">Go to payment</button>
       </div>
     </div>
+
+
 
     <div *ngIf="state !== 1" class="modal-content">
       <div class="modal-header">
@@ -45,6 +50,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
+        <h3> {{lastPrice}}$ </h3>
 
         <form [formGroup]='paymentForm'>
           <div class="form-group mb-3">
@@ -63,30 +70,30 @@
 
             <label for="lastMonth">Expiry Year</label>
             <select formControlName='expiryMonth' class="form-control" name='lastMonth' class="col-md-2" id='expireMM'>
-              <option value=''>Month</option>
-              <option value='01'>January</option>
-              <option value='02'>February</option>
-              <option value='03'>March</option>
-              <option value='04'>April</option>
-              <option value='05'>May</option>
-              <option value='06'>June</option>
-              <option value='07'>July</option>
-              <option value='08'>August</option>
-              <option value='09'>September</option>
-              <option value='10'>October</option>
-              <option value='11'>November</option>
-              <option value='12'>December</option>
+              <option value="0">Month</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
             </select>
 
             <select formControlName='expiryYear' class="form-control" name='expireYY' class="col-md-2" id='expireYY'>
-              <option value=''>Year</option>
-              <option value='21'>2021</option>
-              <option value='22'>2022</option>
-              <option value='23'>2023</option>
-              <option value='24'>2024</option>
-              <option value='25'>2025</option>
-              <option value='26'>2026</option>
-              <option value='27'>2027</option>
+              <option value="0">Year</option>
+              <option value="21">2021</option>
+              <option value="22">2022</option>
+              <option value="23">2023</option>
+              <option value="24">2024</option>
+              <option value="25">2025</option>
+              <option value="26">2026</option>
+              <option value="27">2027</option>
             </select>
           </div>
           <div class="form-group mb-3">
@@ -95,8 +102,10 @@
             <input formControlName='cvv' class="form-control" class="col-md-3 ms-5" type="tel" id='cvv'
               placeholder="CVV" maxlength="3">
           </div>
-          <div class="text-danger"> {{errorMessage}} </div>
+          <div class="text-danger"> {{errorMessage.message}} </div>
+          <div class="text-success"> {{successMessage}} </div>
         </form>
+
 
       </div>
       <div class="modal-footer">

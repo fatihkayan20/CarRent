@@ -77,7 +77,11 @@ export class BrandsComponent implements OnInit {
     if (this.brandEditForm.valid) {
       this.brandService.editBrand(this.brandEditForm.value).subscribe(
         (res) => {
-          console.log(res);
+          this.formMessage = {
+            message: 'Color editted succesfully.',
+            success: true,
+          };
+          this.getBrands();
         },
         (err) => {
           console.log(err);
@@ -85,7 +89,7 @@ export class BrandsComponent implements OnInit {
         }
       );
     } else {
-      this.formMessage = { message: 'Form is not valid', success: true };
+      this.formMessage = { message: 'Form is not valid', success: false };
     }
   }
 

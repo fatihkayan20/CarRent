@@ -78,7 +78,11 @@ export class ColorsComponent implements OnInit {
     if (this.colorEditForm.valid) {
       this.colorService.editColor(this.colorEditForm.value).subscribe(
         (res: any) => {
-          console.log(res);
+          this.formMessage = {
+            message: 'Color editted succesfully.',
+            success: true,
+          };
+          this.getColors();
         },
         (err: any) => {
           console.log(err);
@@ -86,7 +90,7 @@ export class ColorsComponent implements OnInit {
         }
       );
     } else {
-      this.formMessage = { message: 'Form is not valid', success: true };
+      this.formMessage = { message: 'Form is not valid', success: false };
     }
   }
 
