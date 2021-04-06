@@ -1,0 +1,64 @@
+<li class="list-group-item btn text-start" data-bs-toggle="modal" data-bs-target="#carAdd">Car Add</li>
+
+
+<div class="modal fade" id="carAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Brand Add</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]='addForm' (ngSubmit)='add()'>
+
+          <div class="form-group">
+            <label for="name">Brand</label>
+            <select class="form-select" formControlName='brandId'>
+              <option *ngFor="let brand of brands" [ngValue]='brand.id'> {{brand.name}} </option>
+            </select>
+          </div>
+
+
+          <div class="form-group mt-3">
+            <label for="name">Color</label>
+            <select class="form-select" formControlName='colorId'>
+              <option *ngFor="let color of colors" [ngValue]='color.id'> {{color.name}} </option>
+            </select>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="name">Daily Price</label>
+            <input type="number" id="name" class="form-control" formControlName='dailyPrice'>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="name">Model Year</label>
+            <input type="number" id="name" class="form-control" formControlName='modelYear'>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="name">Findex Point</label>
+            <input type="number" id="name" class="form-control" formControlName='findexPuan'>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="name">Description</label>
+            <input type="text" id="name" class="form-control" formControlName='description'>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="name">Images</label>
+            <input type="file" id="name" class="form-control" (change)="handleFileInput($event)"
+              accept=".jpeg,.png,.jpg" multiple>
+          </div>
+          <div class="mt-3 text-center" [ngClass]="message?.success ? ' text-success': 'text-danger'">
+            {{message?.message}}
+          </div>
+          <div class="form-group mt-3 mt-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary px-5">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

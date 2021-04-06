@@ -20,6 +20,17 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RegisterComponent } from './components/register/register.component';
 import { DatePipe } from '@angular/common';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { SidebarComponent } from './components/admin/sidebar/sidebar.component';
+import { CarUpdateComponent } from './components/admin/car/car-update/car-update.component';
+import { ColorUpdateComponent } from './components/admin/color/color-update/color-update.component';
+import { BrandUpdateComponent } from './components/admin/brand/brand-update/brand-update.component';
+import { BrandAddComponent } from './components/admin/brand/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/admin/color/color-add/color-add.component';
+import { CarAddComponent } from './components/admin/car/car-add/car-add.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +47,17 @@ import { DatePipe } from '@angular/common';
     CarFilterPipePipe,
     LoginComponent,
     RegisterComponent,
+    UserEditComponent,
+    AdminPanelComponent,
+    MainLayoutComponent,
+    AdminLayoutComponent,
+    SidebarComponent,
+    CarUpdateComponent,
+    ColorUpdateComponent,
+    BrandUpdateComponent,
+    BrandAddComponent,
+    ColorAddComponent,
+    CarAddComponent,
   ],
   imports: [
     BrowserModule,

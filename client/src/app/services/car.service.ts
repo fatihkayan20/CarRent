@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Car } from './../models/car';
 import { apiUrl } from '../../environments/environments';
 import { Observable } from 'rxjs';
@@ -33,5 +34,20 @@ export class CarService {
     }
 
     return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
+
+  add(car: FormData) {
+    let url = apiUrl + '/cars';
+    return this.httpClient.post(url, car);
+  }
+
+  update(car: Car) {
+    let url = apiUrl + '/cars/update';
+    return this.httpClient.post(url, car);
+  }
+
+  delete(car: Car) {
+    let url = apiUrl + '/cars/delete';
+    return this.httpClient.post(url, car);
   }
 }

@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
                         ModelYear = c.ModelYear,
                         DailyPrice = c.DailyPrice,
                         Description = c.Description,
-                        Images = (from i in context.CarImages where  i.CarId == c.Id select i.ImagePath).ToList(),
+                        Images = (from i in context.CarImages where  i.CarId == c.Id select i).ToList(),
                         FindexPuan = c.FindexPuan,
                         IsRentable = !context.Rentals.Any(r=>r.CarId == c.Id) || !context.Rentals.Any(r => r.CarId == c.Id && (r.ReturnDate == null || (r.ReturnDate.HasValue && r.ReturnDate > DateTime.Now )))
                     };

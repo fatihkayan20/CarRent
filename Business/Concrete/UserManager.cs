@@ -15,10 +15,12 @@ namespace Business.Concrete
     public class UserManager:IUserService
     {
         private IUserDal _userDal;
+        private ICustomerDal _customerDal;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal,ICustomerDal customerDal)
         {
             _userDal = userDal;
+            _customerDal = customerDal;
         }
         public IDataResult<List<User>> GetAll()
         {
@@ -43,9 +45,24 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserDeleted);
         }
 
-        public IResult Update(User user)
+        public IResult Update(User user, Customer customer)
         {
-            _userDal.Update(user);
+            var currentUser = _userDal.Get(x => x.Id == user.Id);
+
+            var userForUpdate = new User()
+            {
+                FirstName = user.FirstName,
+                Email = user.Email,
+                Id = user.Id,
+                LastName = user.LastName,
+                PasswordHash = currentUser.PasswordHash,
+                PasswordSalt = currentUser.PasswordSalt,
+                Status = currentUser.Status
+
+            };
+
+            _customerDal.Update(customer);
+            _userDal.Update(userForUpdate);
             return new SuccessResult(Messages.UserUpdated);
         }
 

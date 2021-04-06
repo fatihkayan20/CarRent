@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Business.Abstract;
@@ -57,10 +58,35 @@ namespace WebApi.Controllers
         }
         
         [HttpPost("add")]
-        public IActionResult Add([FromForm] IFormFile image, [FromForm] CarImage carImage )
+        public IActionResult Add([FromForm] List<IFormFile> images, [FromForm] CarImage carImage )
         {
             
-            var result = _carImageService.Add(image,carImage);
+            var result = _carImageService.Add(images, carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }  
+        
+        
+        [HttpPost("uploadImages")]
+        public IActionResult UploadImages([FromForm] List<IFormFile> images, [FromForm] CarImage images )
+        {
+            
+            var result = _carImageService.Add(images, carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }    
+        
+        [HttpPost("deleteImages")]
+        public IActionResult DeleteMultipleImages(List<CarImage> images )
+        {
+            
+            var result = _carImageService.DeleteAll(images);
             if (result.Success)
             {
                 return Ok(result);

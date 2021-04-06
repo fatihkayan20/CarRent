@@ -25,9 +25,7 @@ export class ColorsComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {
-    this.getColors();
-  }
+  ngOnInit(): void {}
 
   createColorEditForm() {
     this.colorEditForm = this.formBuilder.group({
@@ -43,12 +41,9 @@ export class ColorsComponent implements OnInit {
       this.createColorEditForm();
       this.isColorSetted = true;
     }
-  }
-
-  getColors() {
-    this.colorService.getColors().subscribe((res) => {
-      this.colors = res.data;
-    });
+    if (this.colorService.allColors !== this.colors) {
+      this.colors = this.colorService.allColors;
+    }
   }
 
   setCurrentColor(color: Color) {
@@ -68,9 +63,7 @@ export class ColorsComponent implements OnInit {
 
   delete(color: Color) {
     if (confirm('Are you sure to delete ' + color.name + '?')) {
-      this.colorService.delete(color).subscribe(() => {
-        this.getColors();
-      });
+      this.colorService.delete(color).subscribe(() => {});
     }
   }
 
@@ -82,7 +75,6 @@ export class ColorsComponent implements OnInit {
             message: 'Color editted succesfully.',
             success: true,
           };
-          this.getColors();
         },
         (err: any) => {
           console.log(err);

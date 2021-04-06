@@ -1,3 +1,5 @@
+import { Customer } from './../models/customer';
+import { ResponseModel } from './../models/responseModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiUrl } from 'src/environments/environments';
@@ -18,6 +20,8 @@ export class AuthService {
     Id: 0,
     IsAdmin: false,
     Name: '',
+    CustomerId: 0,
+    CompanyName: '',
   };
   jwtHelper: JwtHelperService = new JwtHelperService();
 
@@ -44,9 +48,19 @@ export class AuthService {
         this.logout();
       } else {
         this.user = token;
+        this.getCustomerByUser(this.user.Id);
         this.user.IsAdmin = this.isAdmin(token);
       }
     }
+  }
+
+  getCustomerByUser(userId: number) {
+    let url = apiUrl + '/customers/user/' + userId;
+
+    this.httpClient.get<SingleResponseModel<Customer>>(url).subscribe((res) => {
+      this.user.CustomerId = res.data.id;
+      this.user.CompanyName = res.data.companyName;
+    });
   }
 
   isAuthenticated() {
@@ -59,11 +73,13 @@ export class AuthService {
 
   isAdmin(token: any) {
     let result = false;
-    token.Claims.map((claim: string) => {
-      if (claim.toLocaleLowerCase() === 'admin') {
-        result = true;
-      }
-    });
+    token.Claims.toString()
+      .split(',')
+      ?.map((claim: string) => {
+        if (claim.toLocaleLowerCase() === 'admin') {
+          result = true;
+        }
+      });
     return result;
   }
 }

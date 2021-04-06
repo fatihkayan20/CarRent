@@ -7,18 +7,13 @@
         <img [src]="imageUrl + defaultImg" class="d-block mx-auto" alt="ImagePath" style="height: 50vh;" />
       </div>
 
-      <div class="carousel-item" *ngFor="let carImage of cars[0]?.images; index as i; first as firstImage">
-
-        <img [src]="carImage  ? imageUrl+ carImage : imageUrl + defaultImg" alt="..." class="d-block w-100"
-          style="height: 50%; object-fit: contain;" />
-      </div>
 
 
       <div class="carousel-item" *ngFor="let carImage of cars[0]?.images; index as i; first as firstImage"
         [ngClass]="{ active: firstImage }">
 
-        <img [src]="carImage  ? imageUrl+ carImage : imageUrl + defaultImg" alt="..." class="d-block mx-auto"
-          style="height: 50vh; object-fit: contain;" />
+        <img [src]="carImage  ? imageUrl+ carImage.imagePath : imageUrl + defaultImg" alt="..." class="d-block mx-auto"
+          style="width: 80%; height: 60vh; object-fit: contain;" />
       </div>
 
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">

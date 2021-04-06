@@ -10,15 +10,25 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BrandService {
-  constructor(private httpClient: HttpClient) {}
+  allBrands: Brand[];
+  constructor(private httpClient: HttpClient) {
+    this.getBrands();
+  }
 
-  getBrands(name?: string): Observable<ListResponseModel<Brand>> {
+  getBrands(name?: string) {
     let url = apiUrl + '/brands?';
 
     if (name !== undefined) {
       url += 'name=' + name + '&';
     }
-    return this.httpClient.get<ListResponseModel<Brand>>(url);
+    this.httpClient.get<ListResponseModel<Brand>>(url).subscribe((res) => {
+      this.allBrands = res.data;
+    });
+  }
+
+  add(brand: Brand) {
+    let url = apiUrl + '/brands';
+    return this.httpClient.post(url, brand);
   }
 
   editBrand(brand: Brand) {

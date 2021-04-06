@@ -16,7 +16,7 @@ namespace Entities.DTOs
         public int? FindexPuan { get; set; }
         public string BrandName { get; set; }
         public string ColorName { get; set; }
-         public List<string> Images { get; set; }
+         public List<CarImage> Images { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
         public bool IsRentable { get; set; }

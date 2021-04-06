@@ -29,6 +29,17 @@ namespace Business.Concrete
         public IDataResult<Customer> GetById(int id)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id), Messages.CustomerRetrieved);
+        }   
+        public IDataResult<Customer> GetByUserId(int userId)
+        {
+            var result = _customerDal.Get(c => c.UserId == userId);
+            if (result != null)
+            {
+                
+                return new SuccessDataResult<Customer>(result, Messages.CustomerRetrieved);
+            }
+
+            return new ErrorDataResult<Customer>("There is no customer with this user id");
         }
 
         [ValidationAspect(typeof(CustomerValidator))]

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./brands.component.css'],
 })
 export class BrandsComponent implements OnInit {
-  brands: Brand[] = [];
+  brands: Brand[] = this.brandService.allBrands;
   filterText: string = '';
   brandEditForm: FormGroup;
   brand: Brand;
@@ -26,9 +26,7 @@ export class BrandsComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  ngOnInit(): void {
-    this.getBrands();
-  }
+  ngOnInit(): void {}
 
   createBrandEditForm() {
     this.brandEditForm = this.formBuilder.group({
@@ -43,12 +41,9 @@ export class BrandsComponent implements OnInit {
       this.createBrandEditForm();
       this.isBrandSetted = true;
     }
-  }
-
-  getBrands() {
-    this.brandService.getBrands().subscribe((res) => {
-      this.brands = res.data;
-    });
+    if (this.brandService.allBrands !== this.brands) {
+      this.brands = this.brandService.allBrands;
+    }
   }
 
   setCurrentBrand(brand: Brand) {
@@ -81,7 +76,6 @@ export class BrandsComponent implements OnInit {
             message: 'Color editted succesfully.',
             success: true,
           };
-          this.getBrands();
         },
         (err) => {
           console.log(err);

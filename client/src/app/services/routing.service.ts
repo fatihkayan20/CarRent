@@ -29,6 +29,7 @@ export class RoutingService {
     dailyPrice: 0,
     description: '',
     isRentable: true,
+    findexPuan: 0,
     images: [],
     modelYear: 0,
   };

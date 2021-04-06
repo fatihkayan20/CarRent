@@ -2,8 +2,8 @@
 
 <div class="row">
   <div *ngFor="let car of cars | carFilterPipe:filterText" class="card col-md-2 m-2" style="width: 18rem;">
-    <img [src]="car.images.length !== 0 ? imageUrl+ car.images[0] : imageUrl + defaultImg" class="card-img-top"
-      style="height: 50%;" alt="">
+    <img [src]="car.images.length !== 0 ? imageUrl+ car.images[0].imagePath : imageUrl + defaultImg"
+      class="card-img-top" style="height: 50%;" alt="">
     <div class="card-body">
       <p class="card-text">{{car.description}}</p>
     </div>

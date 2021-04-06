@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Business.Abstract;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 
 namespace WebApi.Controllers
 {
@@ -39,9 +40,9 @@ namespace WebApi.Controllers
 
         [Route("update")]
         [HttpPost]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserUpdate userUpdate)
         {
-            var result = _userService.Update(user);
+            var result = _userService.Update(userUpdate.User,userUpdate.Customer);
             if (result.Success)
             {
                 return Ok(result);
@@ -59,6 +60,12 @@ namespace WebApi.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+        
+        public class UserUpdate
+        {
+            public User User { get; set; }
+            public Customer Customer { get; set; }
         }
     }
 }

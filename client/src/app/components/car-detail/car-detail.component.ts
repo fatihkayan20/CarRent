@@ -46,6 +46,7 @@ export class CarDetailComponent implements OnInit {
     this.carService
       .getCarWithFilter(brandId, colorId, status, id)
       .subscribe((response) => {
+        console.log(response.data);
         this.cars = response.data;
       });
   }

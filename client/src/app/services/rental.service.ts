@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { RentAddModel } from './../models/rentAddModel';
 import { Payment } from './../models/payment';
 import { SingleResponseModel } from './../models/singleResponseModel';
@@ -10,12 +11,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class RentalService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
   rent(rentAdd: RentAddModel) {
     let url = apiUrl + '/rentals';
 
-    rentAdd.rental.customerId = 2;
+    rentAdd.rental.customerId = this.authService.user.CustomerId;
 
     return this.httpClient.post<SingleResponseModel<RentAddModel>>(
       url,

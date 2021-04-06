@@ -24,6 +24,13 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
+  isAdmin() {
+    if (this.authService.user.IsAdmin) {
+      return true;
+    }
+    return false;
+  }
+
   setUser() {
     this.authService.setUser();
   }

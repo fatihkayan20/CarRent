@@ -9,14 +9,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ColorService {
-  constructor(private httpClient: HttpClient) {}
+  allColors: Color[];
+  constructor(private httpClient: HttpClient) {
+    this.getColors();
+  }
 
-  getColors(name?: string): Observable<ListResponseModel<Color>> {
+  getColors(name?: string) {
     let url = apiUrl + '/colors?';
     if (name !== undefined) {
       url += 'name=' + name + '&';
     }
-    return this.httpClient.get<ListResponseModel<Color>>(url);
+    this.httpClient.get<ListResponseModel<Color>>(url).subscribe((res) => {
+      this.allColors = res.data;
+    });
+  }
+
+  add(color: Color) {
+    let url = apiUrl + '/colors';
+    return this.httpClient.post(url, color);
   }
 
   editColor(color: Color) {

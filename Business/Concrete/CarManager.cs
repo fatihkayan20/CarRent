@@ -12,16 +12,19 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
     public class CarManager:ICarService
     {
         private ICarDal _carDal;
+        private ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
         
 
@@ -34,9 +37,11 @@ namespace Business.Concrete
 
         // [SecuredOperation("add")]
        [ValidationAspect(typeof(CarValidator))]
-        public IResult Add(Car car)
+        public IResult Add(Car car, List<IFormFile> image)
         {
-            _carDal.Add(car);
+           
+            var addedCar = _carDal.Add(car);
+            _carImageService.Add(image, new CarImage() { CarId = addedCar.Id });
             return new SuccessResult(Messages.CarCreated);
         }
 

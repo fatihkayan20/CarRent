@@ -44,7 +44,9 @@
           {{user.Name}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <li><button class="dropdown-item" type="button">Edit Profile</button></li>
+          <li><button routerLink='/admin' *ngIf="isAdmin()" class="dropdown-item" type="button">Admin Panel</button>
+          </li>
+          <li><button routerLink='/user/edit' class="dropdown-item" type="button">Edit Profile</button></li>
           <li><button class="dropdown-item" type="button" (click)="logout()">Logout</button></li>
         </ul>
       </div>

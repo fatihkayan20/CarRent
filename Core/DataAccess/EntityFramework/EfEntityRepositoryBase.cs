@@ -12,7 +12,7 @@ namespace Core.DataAccess.EntityFramework
         where TEntity: class, IEntity, new()
         where TContext : DbContext,new()
     {
-        public void Add(TEntity entity) 
+        public TEntity Add(TEntity entity) 
         {
             //IDisposable pattern implementation of c#
             using (TContext context = new TContext())
@@ -20,6 +20,7 @@ namespace Core.DataAccess.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+                return entity;
             }
         }
 
@@ -30,6 +31,7 @@ namespace Core.DataAccess.EntityFramework
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
+                
             }
         }
 
@@ -51,13 +53,14 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+                return entity;
             }
         }
     }

@@ -30,7 +30,20 @@ namespace WebApi.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }   
+        
+        [HttpGet("user/{userId}")]
+        public IActionResult GetAll(int userId)
+        {
+            var result = _customerService.GetByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
+        
+        
 
         [HttpPost]
         public IActionResult Add(Customer customer)

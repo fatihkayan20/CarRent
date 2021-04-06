@@ -46,9 +46,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Car car)
+        public IActionResult Add([FromForm]Car car, [FromForm] List<IFormFile> image )
         {
-            var result = _carService.Add(car);
+            var result = _carService.Add(car,image);
             if (result.Success)
             {
                 return Ok(result);
@@ -84,6 +84,11 @@ namespace WebApi.Controllers
         }
     }
 
+    public class CarAddDto
+    {
+        public Car Car { get; set; }
+        public IFormFile Image { get; set; }
+    }
 
   
 }
