@@ -71,7 +71,7 @@ namespace WebApi.Controllers
         
         
         [HttpPost("uploadImages")]
-        public IActionResult UploadImages([FromForm] List<IFormFile> images, [FromForm] CarImage images )
+        public IActionResult UploadImages([FromForm] List<IFormFile> images, [FromForm] CarImage carImage )
         {
             
             var result = _carImageService.Add(images, carImage);
