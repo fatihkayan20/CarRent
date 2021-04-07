@@ -1,6 +1,8 @@
 <form class="form-signin" [formGroup]='registerForm'>
-  <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-  <h1 class="h3 mb-3 fw-normal">Register</h1>
+  <h1 class="text-center mt-3 mb-2">
+
+    <span class="text-uppercase name fw-bold "> Fatih</span> <span class="text-uppercase fw-bold">Rent</span>
+  </h1>
 
   <div class="form-floating mb-3">
     <input formControlName='email' type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -11,8 +13,7 @@
     <label for="floatingPassword">Password</label>
   </div>
   <div class="form-floating">
-    <input formControlName='firstName' type="password" class="form-control" id="floatingPassword"
-      placeholder="Password">
+    <input formControlName='firstName' type="text" class="form-control" id="floatingPassword" placeholder="Password">
     <label for="floatingPassword">First Name</label>
   </div>
   <div class="form-floating">
@@ -20,9 +21,9 @@
     <label for="floatingPassword">Last Name</label>
   </div>
 
-  <div class="checkbox mb-3">
+  <div class=" mb-3">
     <label>
-      <input type="text" value="remember-me"> Remember me
+      <input type="checkbox" class="checkbox" value="remember-me"> Remember me
     </label>
   </div>
   <button class="w-100 btn btn-lg btn-primary" (click)="register()">Sign in</button>

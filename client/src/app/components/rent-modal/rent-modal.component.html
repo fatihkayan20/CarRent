@@ -98,6 +98,11 @@
             <input formControlName='cvv' class="form-control" class="col-md-3 ms-5" type="tel" id='cvv'
               placeholder="CVV" maxlength="3">
           </div>
+          <div class="form-group mb-3">
+            <label for="saveCard" class="me-2">Save Card</label>
+            <input type="checkbox" id="saveCard" [(ngModel)]="saveCard" [ngModelOptions]="{standalone: true}">
+          </div>
+
           <div class="text-danger"> {{errorMessage.message}} </div>
           <div class="text-success"> {{successMessage}} </div>
         </form>

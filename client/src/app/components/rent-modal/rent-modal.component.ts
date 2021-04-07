@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { RentAddModel } from './../../models/rentAddModel';
 import { RentalService } from './../../services/rental.service';
@@ -24,6 +25,8 @@ export class RentModalComponent implements OnInit {
   lastPrice: number;
   rentAddModel: RentAddModel;
   carId: number;
+  saveCard: boolean = false;
+  savedCard: any;
 
   @Input() dailyPrice: number;
   @Input() isAvailable: boolean;
@@ -32,15 +35,24 @@ export class RentModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private rentalService: RentalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       this.carId = Number(param['carId'].split('-')[0]);
     });
+
     this.createCarRentForm();
     this.createPaymentForm();
+    if (localStorage.getItem('creditCard')) {
+      let cc = JSON.parse(localStorage.getItem('creditCard'));
+      console.log(cc);
+      if (cc.customerId === this.authService.user.CustomerId) {
+        this.paymentForm.patchValue(cc);
+      }
+    }
 
     this.minDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.maxDate = this.datePipe.transform(
@@ -52,7 +64,10 @@ export class RentModalComponent implements OnInit {
   createCarRentForm() {
     this.carRentForm = this.formBuilder.group({
       carId: [this.carId],
-      rentDate: ['', Validators.required],
+      rentDate: [
+        this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+        Validators.required,
+      ],
       returnDate: [null],
     });
   }
@@ -83,8 +98,14 @@ export class RentModalComponent implements OnInit {
         rental: this.carRentForm.value,
       };
 
+      if (this.saveCard) {
+        let ccInfo = this.paymentForm.value;
+        ccInfo.customerId = this.authService.user.CustomerId;
+        localStorage.setItem('creditCard', JSON.stringify(ccInfo));
+      }
+
       this.rentalService.rent(this.rentAddModel).subscribe(
-        (res) => {
+        () => {
           this.successMessage = 'Car rented successfully.';
         },
         (err) => {
