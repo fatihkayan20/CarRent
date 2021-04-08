@@ -8,6 +8,7 @@
 }
 
 .sort-section>li>a {
+  cursor: pointer;
   font-size: 20px;
   letter-spacing: 5px;
 }
