@@ -1,3 +1,14 @@
 .rentButton {
   background-color: #323232;
 }
+
+.detailImage {
+  max-width: 100%;
+  height: 623px;
+  max-height: 623px;
+  min-height: 623px;
+}
+
+.carouselimg {
+  height: 513px !important;
+}

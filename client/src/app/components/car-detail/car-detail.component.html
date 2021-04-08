@@ -1,23 +1,25 @@
 <div class="newslettercontent">
   <div class="leftside">
     <img src="assets/image/border.png" alt="border">
-    <h1> {{cars[0].brandName}} </h1>
+    <h1> {{cars[0]?.brandName}} </h1>
     <div class="leftSideDiv">
-      <p class="description"> {{cars[0].description}} </p>
-      <p class="mt-5"> <span>Color</span> : {{cars[0].colorName}} </p>
-      <p><span>Daily Price </span>: {{cars[0].dailyPrice |currency}} </p>
-      <p> <span>Model Year</span> : {{cars[0].modelYear}} </p>
-      <p><span>Findex Point </span>: {{cars[0].findexPuan}} </p>
+      <p class="description"> {{cars[0]?.description}} </p>
+      <p class="mt-5"> <span>Color</span> : {{cars[0]?.colorName}} </p>
+      <p><span>Daily Price </span>: {{cars[0]?.dailyPrice |currency}} </p>
+      <p> <span>Model Year</span> : {{cars[0]?.modelYear}} </p>
+      <p><span>Findex Point </span>: {{cars[0]?.findexPuan}} </p>
     </div>
 
   </div>
   <div class="rightside">
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-interval="3000" data-bs-ride="carousel">
-      <div class="carousel-inner">
+    <div id="carouselExampleFade" class="carousel slide " data-ride="carousel" data-bs-ride="carousel"
+      style="height: 623px;">
+      <div class="carousel-inner h-100">
 
 
-        <div *ngIf="cars[0]?.images?.length === 0" class="carousel-item active" [class.active]="true">
-          <img [src]="imageUrl + defaultImg" class="d-block mx-auto" alt="ImagePath" style="height: 50vh;" />
+        <div *ngIf="cars[0]?.images?.length === 0" class="carousel-item active detailImage" [class.active]="true">
+          <img [src]="imageUrl + defaultImg" class="d-block mx-auto detailImage" alt="ImagePath"
+            style="height: 50vh;" />
         </div>
 
 
