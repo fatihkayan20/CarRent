@@ -80,7 +80,7 @@
             {{message?.message}}
           </div>
           <div class="form-group mt-3 mt-3 d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary px-5">Update</button>
+            <button type="submit" class="navButton w-50">Update</button>
           </div>
         </form>
       </div>
@@ -98,7 +98,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)='updateImages()'>
 
           <div class="text-danger">Click for delete</div>
           <div class="image">
@@ -116,7 +116,7 @@
             {{message?.message}}
           </div>
           <div class="form-group mt-3 mt-3 d-flex justify-content-center">
-            <button type="submit" class="navButton w-50" (click)="updateImages()">Update</button>
+            <button type="submit" class="navButton w-50">Update</button>
           </div>
         </form>
       </div>
