@@ -83,6 +83,7 @@ export class UserEditComponent implements OnInit {
 
       this.userService.updateUser(user, customer).subscribe(
         () => {
+          this.authService.setUser();
           this.router.navigate(['/']);
         },
         (err) => {

@@ -40,17 +40,7 @@ export class CarsComponent implements OnInit {
       } else if (brandName) {
         this.getCarWithFilter(brandName, undefined);
       } else {
-        this.getCarWithFilter(
-          this.routingService.currentBrand?.id > 0
-            ? this.routingService.currentBrand?.id
-            : undefined,
-          this.routingService.currentColor?.id > 0
-            ? this.routingService.currentColor?.id
-            : undefined,
-          this.routingService.currentStatus?.id > 0
-            ? this.routingService.currentStatus?.id
-            : undefined
-        );
+        this.getCarWithFilter(undefined, undefined);
       }
     });
   }

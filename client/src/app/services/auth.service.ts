@@ -73,7 +73,7 @@ export class AuthService {
 
   isAdmin(token: any) {
     let result = false;
-    token.Claims.toString()
+    token.Claims?.toString()
       .split(',')
       ?.map((claim: string) => {
         if (claim.toLocaleLowerCase() === 'admin') {
