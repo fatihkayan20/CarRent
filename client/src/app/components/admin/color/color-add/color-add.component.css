@@ -1,0 +1,25 @@
+.navButton {
+  margin-left: 0 !important;
+}
+
+.main-column {
+  flex: 1;
+}
+
+.align-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.long-column {
+  min-width: 250px;
+  font-size: 20px;
+}
+
+.short-column {
+  min-width: 100px;
+  font-size: 20px;
+}
