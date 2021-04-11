@@ -63,4 +63,5 @@
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/register_page.png" />
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/user_edit_page.png" />
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/car_update_page.png" />
+Multiple Image Upload
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/carimage_update_page.png" />
