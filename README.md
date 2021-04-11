@@ -1,4 +1,4 @@
-Car Rent Project is a online car a rent car project. [Check introduction video](https://www.youtube.com/watch?v=kCX8vR0O0YM)
+Car Rent Project is an online car rent car project. [Check introduction video](https://www.youtube.com/watch?v=kCX8vR0O0YM)
 
 # Tables of Contents
 [**BackEnd**](#Backend)
