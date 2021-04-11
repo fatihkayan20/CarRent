@@ -59,7 +59,8 @@
 ### Index Page
 
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/index_page.png" />
-Index Page With Menu
+
+### Index Page With Menu
 
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/index_page_with_menu.png" />
 ### Detail Page
