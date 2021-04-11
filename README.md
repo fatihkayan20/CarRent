@@ -56,21 +56,21 @@
 
 ### Images
 
-#### Index Page
+### Index Page
 
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/index_page.png" />
 Index Page With Menu
 
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/index_page_with_menu.png" />
-#### Detail Page
+### Detail Page
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/detail_page.png" />
-#### Login Page
+### Login Page
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/login_page.png" />
-#### Register Page
+### Register Page
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/register_page.png" />
-#### User Edit
+### User Edit
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/user_edit_page.png" />
-#### Car Update
+### Car Update
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/car_update_page.png" />
-#### Multiple Image Upload And Delete
+### Multiple Image Upload And Delete
 <img src="https://github.com/fatihkayan20/CarRent/blob/master/ImagesForGithub/carimage_update_page.png" />
